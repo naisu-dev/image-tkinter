@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, filedialog
 import PIL
-from PIL import Image, ImageFilter, ImageOps, ImageStat
+from PIL import Image, ImageFilter, ImageOps
 import os
 
 image_filetype = [('pngfile', '*.png'), ('jpegfile', '*.jpg *.jpeg')]
@@ -29,6 +29,9 @@ def yomikomi_def():
     menu_gray = ttk.Radiobutton(main_canvas, value = 5, variable = menu_dore, text = "モノクロ", style = "menu.TRadiobutton")
     menu_nichika = ttk.Radiobutton(main_canvas, value = 6, variable = menu_dore, text = "2値化", style = "menu.TRadiobutton")
     menu_heikinka = ttk.Radiobutton(main_canvas, value = 7, variable = menu_dore, text = "平均化", style = "menu.TRadiobutton")
+    menu_90do = ttk.Radiobutton(main_canvas, value = 8, variable = menu_dore, text = "90度", style = "menu.TRadiobutton")
+    menu_180do = ttk.Radiobutton(main_canvas, value = 9, variable = menu_dore, text = "180度", style = "menu.TRadiobutton")
+    menu_270do = ttk.Radiobutton(main_canvas, value = 10, variable = menu_dore, text = "270度", style = "menu.TRadiobutton")
     menu_akaruku.place(x = 10, y = 10)
     menu_kuraku.place(x = 10, y = 50)
     menu_mozaiku.place(x = 10, y = 90)
@@ -37,6 +40,9 @@ def yomikomi_def():
     menu_gray.place(x = 210, y = 50)
     menu_nichika.place(x = 210, y = 90)
     menu_heikinka.place(x = 210, y = 130)
+    menu_90do.place(x = 10, y = 170)
+    menu_180do.place(x = 210, y = 170)
+    menu_270do.place(x = 10, y = 210)
     def kanryo():
         global file
         hozon_basho = tk.filedialog.asksaveasfilename(title = "画像を保存", filetype = image_filetype)
@@ -65,6 +71,12 @@ def yomikomi_def():
             file = file.point(lambda x: 0 if x < 230 else x)
         if kanse_dousa == 7:
             file = ImageOps.equalize(file)
+        if kanse_dousa == 8:
+            file = file.rotate(90, expand = True)
+        if kanse_dousa == 9:
+            file = file.rotate(180, expand = True)
+        if kanse_dousa == 10:
+            file = file.rotate(270, expand = True)
         file.save(hozon_basho)
         main_canvas.place_forget()
         saigo_canvas = tk.Canvas(width = 500, height = 400)
@@ -79,7 +91,7 @@ def yomikomi_def():
         saigo_owari_button = ttk.Button(saigo_canvas, text = "もう一度", command = yarinaosi)
         saigo_owari_button.pack()
     mainwin_button = ttk.Button(main_canvas, text = "完了", command = kanryo)
-    mainwin_button.place(x=10, y=200)
+    mainwin_button.place(x = 210, y = 210)
     
 startwin_canvas = tk.Canvas(width = 500, height = 400)
 startwin_canvas.place(x = 0, y = 0)

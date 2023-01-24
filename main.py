@@ -18,7 +18,7 @@ def yomikomi_def():
     filename = filedialog.askopenfilename(title = "画像ファイルを開く", filetype = image_filetype)
     file = Image.open(filename)
     startwin_canvas.place_forget()
-    main_canvas = tk.Canvas()
+    main_canvas = tk.Canvas(width = 500, height = 400)
     main_canvas.place(x = 0, y = 0)
     menu_dore = tk.IntVar()
     menu_akaruku = ttk.Radiobutton(main_canvas, value = 0, variable = menu_dore, text = "明るくする", style = "menu.TRadiobutton")
